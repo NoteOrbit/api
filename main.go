@@ -28,16 +28,6 @@ func getTodos(context *gin.Context) {
 	context.IndentedJSON(http.StatusOK, todos)
 }
 
-func addTodo(context *gin.Context) {
-	var newTodo todo
-
-	if err := context.BindJSON(&newTodo); err != nil {
-		return
-	}
-
-	todos = append(todos, newTodo)
-	context.IndentedJSON(http.StatusOK, newTodo)
-}
 
 func main() {
 	port := os.Getenv("PORT")
@@ -47,7 +37,6 @@ func main() {
 	}
 	router := gin.Default()
 	router.GET("/todos", getTodos)
-	router.POST("todos", addTodo)
 	router.Run(fmt.Sprintf(":%s", port))
 }
 
